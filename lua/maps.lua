@@ -8,10 +8,13 @@ local select, pairs, insert = select, pairs, table.insert
 -- Mixin https://github.com/Gethe/wow-ui-source/blob/live/Interface/AddOns/Blizzard_SharedXMLBase/Mixin.lua
 -- CopyTable
 
+---@class Maps
 local maps = {}
 ns.lua.maps = maps
 
 -- merge multiple tables into the first one, overwriting existing keys
+---@class Maps
+---@field merge fun(dest: table, ...): table
 function maps.merge(destination, ...)
   for i=1,select("#", ...) do
     local t = select(i, ...)
@@ -47,7 +50,9 @@ function maps.fill(destination, ...)
   return destination
 end
 
--- return a new table by transforming each value by the given function
+---return a new table by transforming each value by the given function
+---@class Maps
+---@field map fun(t: table, f: fun(v: any, k: integer | string): any): table
 function maps.map(t, f)
   local r = {}
   for k,v in pairs(t) do
@@ -61,6 +66,17 @@ function maps.toMap(t, f)
   local r = {}
   for i,v in ipairs(t) do
     r[v] = f == nil and v or f(v, i)
+  end
+  return r
+end
+
+---return a list by transforming the key/value pairs of the map
+---@class Maps
+---@field toList fun(t: table, f: fun(k: integer | string, v: any): any): table
+function maps.toList(t, f)
+  local r = {}
+  for k,v in pairs(t) do
+    insert(r, f(k, v))
   end
   return r
 end
