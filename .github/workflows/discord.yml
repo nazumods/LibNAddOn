@@ -1,0 +1,16 @@
+# https://gist.github.com/jagrosh/5b1761213e33fc5b54ec7f6379034a22
+# https://github.com/marketplace/actions/actions-status-discord
+
+name: "Post to Discord"
+on:
+  push:
+
+jobs:
+  post:
+    runs-on: ubuntu-slim
+    steps:
+      - name: Actions Status Discord
+        uses: sarisia/actions-status-discord@v1.15.5
+        if: always()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
