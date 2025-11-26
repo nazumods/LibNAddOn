@@ -1,6 +1,7 @@
 local _, ns = ...
 local select, pairs, insert = select, pairs, table.insert
 
+---@class Lists
 local lists = {}
 ns.lua.lists = lists
 
@@ -26,7 +27,9 @@ function lists.generate(f, n, start)
   return r
 end
 
--- return a new table by transforming each value by the given function
+---return a new table by transforming each value by the given function
+---@class Lists
+---@field map fun(t: table, f: fun(v: any, k: integer): any): table
 function lists.map(t, f)
   local r = {}
   for k,v in ipairs(t) do
