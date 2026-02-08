@@ -9,7 +9,8 @@ ns.icons = {
   Theatre = "UI-EventPoi-TheatreTroupe",
   Treasure = "Crosshair_lootall_32",
   BackArrow = "common-icon-backarrow-disable", -- 45x45
-
+-- preMidnight
+  preMidnight = "UI-EventPoi-twilightascension",
   -- reputations
   Nightfall = "renown-nightfall",
 
