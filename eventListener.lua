@@ -62,7 +62,7 @@ function ns.createEventListener(addOn, addOnName)
     -- if any other supported convenience event handlers are defined, set those up
     if self.onLogin then
       self:registerEvent("PLAYER_ENTERING_WORLD", function(_, login, reload)
-        if login or reload then addOn:onLogin() end
+        if login or reload then addOn:onLogin(login, reload) end
       end)
     end
   end)

@@ -5,7 +5,9 @@ local select, pairs, insert = select, pairs, table.insert
 local lists = {}
 ns.lua.lists = lists
 
--- create a list from the values of multiple tables
+---create a list from the values of multiple tables
+---@class Lists
+---@field values fun(...: table): table
 function lists.values(...)
   local copy = {}
   local t
@@ -20,7 +22,9 @@ function lists.values(...)
   return copy
 end
 
--- generate an list by calling a function 1..n times with the index
+---generate an list by calling a function 1..n times with the index
+---@class Lists
+---@field generate fun(f: fun(i: integer): any, n: integer, start: integer?): table
 function lists.generate(f, n, start)
   local r, a = {}, start or 1
   for i=a,n do insert(r, i, f(i)) end
@@ -38,6 +42,8 @@ function lists.map(t, f)
   return r
 end
 
+---@class Lists
+---@field filter fun(t: table, f: fun(v:any, k: integer): any): table
 function lists.filter(t, f)
   local r = {}
   for k,v in ipairs(t) do
@@ -48,8 +54,10 @@ function lists.filter(t, f)
   return r
 end
 
--- find a value in a list, returning the index
--- if value is a function, it will be called for each value, and the matching value will be returned after the index
+---find a value in a list, returning the index
+---if value is a function, it will be called for each value, and the matching value will be returned after the index
+---@class Lists
+---@field find fun(t: table, value: any | fun(v: any): boolean): integer | nil
 function lists.find(table, value)
   if type(value) == "function" then
     for i,v in ipairs(table) do
@@ -66,7 +74,9 @@ function lists.find(table, value)
   return nil
 end
 
--- fold a list into a list of lists, each of size n
+---fold a list into a list of lists, each of size n
+---@class Lists
+---@field fold fun(t: table, n: integer): table
 function lists.fold(t, n)
   local r = {}
   local c = math.ceil(#t / n)
@@ -82,7 +92,9 @@ function lists.fold(t, n)
   return r
 end
 
--- prepend values to a list
+---prepend values to a list
+---@class Lists
+---@field prepend fun(t: table, ...: any): table
 function lists.prepend(t, ...)
   local arg = {...}
   for i=#arg, 1, -1 do
