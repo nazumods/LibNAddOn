@@ -42,7 +42,7 @@ function maps.fill(destination, ...)
         if destination[k] == nil then
           destination[k] = v
         elseif type(destination[k]) == "table" and type(v) == "table" then
-          maps.fill(destination[k], v)
+          --maps.fill(destination[k], v)
         end
       end
     end
